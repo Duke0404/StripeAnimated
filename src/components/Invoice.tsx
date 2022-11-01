@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useEffect } from "react"
+import { ReactNode, useEffect } from "react"
 import styled from "styled-components"
 import InvoiceNode from "./InvoiceNode"
 
@@ -9,7 +9,6 @@ const InvoiceContainer = styled.div`
 	padding: 1rem;
 	border-radius: 8px;
 	background-color: #0c2e4e;
-	width: 50%;
 `
 
 const InvoiceTitle = styled.h1`
@@ -41,17 +40,25 @@ const InvoiceCellFirst = styled(InvoiceCell)`
 	width: 30%;
 `
 
+const Seperator = styled.hr`
+	width: 95%;
+	opacity: 0.25;
+`
+
 interface InvoiceProps {
 	active: boolean[]
-	highlighted: boolean[]
 }
 
-const Invoice = ({ active, highlighted }: InvoiceProps) => {
+const Invoice = ({ active }: InvoiceProps) => {
 	return (
 		<InvoiceContainer>
 			<InvoiceTitle>Invoice</InvoiceTitle>
 
-			<p>Billing period from March 15th, 2021 to April 14th, 2021</p>
+			<p>
+				{active[5]
+					? "Billing period from March 15th, 2021 to April 14th, 2021"
+					: "Billing period from March 1st, 2021 to March 31st, 2021"}
+			</p>
 
 			<InvoiceRow>
 				<InvoiceCellFirst>Description</InvoiceCellFirst>
@@ -60,8 +67,9 @@ const Invoice = ({ active, highlighted }: InvoiceProps) => {
 				<InvoiceCell>Amount</InvoiceCell>
 			</InvoiceRow>
 
+			<Seperator />
+
 			<InvoiceNode
-				highlighted={highlighted[0]}
 				active={active[0]}
 			>
 				<InvoiceSection>
@@ -75,7 +83,6 @@ const Invoice = ({ active, highlighted }: InvoiceProps) => {
 			</InvoiceNode>
 
 			<InvoiceNode
-				highlighted={highlighted[1]}
 				active={active[1]}
 			>
 				<InvoiceRow>
@@ -87,7 +94,6 @@ const Invoice = ({ active, highlighted }: InvoiceProps) => {
 			</InvoiceNode>
 
 			<InvoiceNode
-				highlighted={highlighted[2]}
 				active={active[2]}
 			>
 				<InvoiceRow>
@@ -99,11 +105,15 @@ const Invoice = ({ active, highlighted }: InvoiceProps) => {
 			</InvoiceNode>
 
 			<InvoiceNode
-				highlighted={highlighted[3]}
 				active={active[3]}
 			>
 				<>
-					Storage (per GB)
+					<InvoiceRow>
+						<InvoiceCellFirst>Storage (per GB)</InvoiceCellFirst>
+						<InvoiceCell></InvoiceCell>
+						<InvoiceCell></InvoiceCell>
+						<InvoiceCell></InvoiceCell>
+					</InvoiceRow>
 					<InvoiceRow>
 						<InvoiceCellFirst>First 1,000</InvoiceCellFirst>
 						<InvoiceCell>1,000</InvoiceCell>
@@ -126,7 +136,6 @@ const Invoice = ({ active, highlighted }: InvoiceProps) => {
 			</InvoiceNode>
 
 			<InvoiceNode
-				highlighted={highlighted[4]}
 				active={active[4]}
 			>
 				<InvoiceRow>
@@ -136,6 +145,19 @@ const Invoice = ({ active, highlighted }: InvoiceProps) => {
 					<InvoiceCell>-$1,000.00</InvoiceCell>
 				</InvoiceRow>
 			</InvoiceNode>
+
+			<Seperator />
+
+			<InvoiceRow>
+				<InvoiceCellFirst>
+					<InvoiceTitle>Total</InvoiceTitle>
+				</InvoiceCellFirst>
+				<InvoiceCell></InvoiceCell>
+				<InvoiceCell></InvoiceCell>
+				<InvoiceCell>
+					<InvoiceTitle>$10000</InvoiceTitle>
+				</InvoiceCell>
+			</InvoiceRow>
 		</InvoiceContainer>
 	)
 }

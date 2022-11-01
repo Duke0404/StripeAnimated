@@ -10,30 +10,42 @@ const AppContainer = styled.div`
 	flex-direction: row;
 	padding: 2rem;
 	gap: 2rem;
+
+	@media (max-width: 900px) {
+		flex-direction: column;
+	}
 `
 
 const App = () => {
-	const [highlighted, setHighlighted] = useState([false, false, false, false, false, false])
-	const [active, setActive] = useState([true, true, true, true, true, true])
+	const [active, setActive] = useState([false, false, false, false, false, false])
+	const [initalAnimation, setInitalAnimation] = useState(true)
+
+	useEffect(() => {
+		let i = -1
+
+		const interval = setInterval(() => {
+			setActive(prev => prev.map((b, ind) => (ind === i ? true : b)))
+			++i
+
+			if (i === active.length) {
+				setInitalAnimation(false)
+				clearInterval(interval)
+			}
+		}, 3000)
+	}, [])
 
 	const changeActive = (id: number) => {
 		setActive(prev => prev.map((b, i) => (i === id ? !b : b)))
 	}
 
-	const changeHighlighted = (id: number) => {
-		setHighlighted(prev => prev.map((b, i) => (i === id ? !b : b)))
-		console.log(highlighted)
-	}
-
 	return (
 		<AppContainer>
 			<Features
-				changeHighlighted={changeHighlighted}
 				changeActive={changeActive}
+				active={active}
 			/>
 			<Invoice
 				active={active}
-				highlighted={highlighted}
 			/>
 		</AppContainer>
 	)

@@ -2,16 +2,15 @@ import styled from "styled-components"
 
 interface InvoiceNodeProps {
 	active: boolean
-	highlighted: boolean
 	children: JSX.Element
 }
 
-const InvoiceNodeUnstyled = ({ active, highlighted, children }: InvoiceNodeProps) => (
+const InvoiceNodeUnstyled = ({ active, children }: InvoiceNodeProps) => (
 	<>{active && children}</>
 )
 
 const InvoiceNode = styled(InvoiceNodeUnstyled)`
-	color: ${props => (props.highlighted ? "#fff" : "initial")};
+	transition: position 0.2s ease-in-out, opacity 0.2s ease-in-out;
 `
 
 export default InvoiceNode
