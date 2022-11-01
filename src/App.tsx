@@ -18,7 +18,6 @@ const AppContainer = styled.div`
 
 const App = () => {
 	const [active, setActive] = useState([false, false, false, false, false, false])
-	const [initalAnimation, setInitalAnimation] = useState(true)
 
 	useEffect(() => {
 		let i = -1
@@ -28,10 +27,9 @@ const App = () => {
 			++i
 
 			if (i === active.length) {
-				setInitalAnimation(false)
 				clearInterval(interval)
 			}
-		}, 3000)
+		}, 1000)
 	}, [])
 
 	const changeActive = (id: number) => {

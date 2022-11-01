@@ -9,11 +9,13 @@ const InvoiceContainer = styled.div`
 	padding: 1rem;
 	border-radius: 8px;
 	background-color: #0c2e4e;
+	min-width: 45%;
 `
 
 const InvoiceTitle = styled.h1`
 	font-weight: bold;
 	font-size: 1.5rem;
+	margin: 0;
 	color: #fff;
 `
 
@@ -50,6 +52,10 @@ interface InvoiceProps {
 }
 
 const Invoice = ({ active }: InvoiceProps) => {
+	const prices = [600, 1400, 5525, 25, -1000, 0]
+
+	const total = prices.filter((_, i) => active[i]).reduce((a, b) => a + b, 0)
+
 	return (
 		<InvoiceContainer>
 			<InvoiceTitle>Invoice</InvoiceTitle>
@@ -155,7 +161,7 @@ const Invoice = ({ active }: InvoiceProps) => {
 				<InvoiceCell></InvoiceCell>
 				<InvoiceCell></InvoiceCell>
 				<InvoiceCell>
-					<InvoiceTitle>$10000</InvoiceTitle>
+					<InvoiceTitle>${total}</InvoiceTitle>
 				</InvoiceCell>
 			</InvoiceRow>
 		</InvoiceContainer>
